@@ -15,7 +15,8 @@ _________________________________________________________________________
 This is a project of the course CIS 565: GPU programming and Architecture. A flocking simulation based on the Reynolds Boids algorithm is implemented, along with two levels of optimization: a uniform grid, and a uniform grid with semi-coherent memory access.
 
 ## Performance Analysis
-![without visual, increasing boids](images/Framerate_Change_With_Increasing_Number_of_Boids _without_visualization.png)
+
+![without visual, increasing boids](images/Framerate_Change_With_Increasing_Number_of_Boids_without_visualization.png)
 
 When number of boids is less than 1300, the naive method is better than the improved methods. This may caused by the cost of sorting the grid index and not enough culling out boids.
 
