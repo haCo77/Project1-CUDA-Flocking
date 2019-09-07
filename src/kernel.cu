@@ -420,12 +420,13 @@ __global__ void kernUpdateVelNeighborSearchScattered(
 	glm::vec3 perceived_velocity(0.f, 0.f, 0.f);
 	glm::vec3 thisPos = pos[index];
 
-	int gridx = imax(floor((thisPos.x - gridMin.x) * inverseCellWidth - 0.5), 0);
-	int gridX = imin(floor((thisPos.x - gridMin.x) * inverseCellWidth + 0.5), gridResolution - 1);
-	int gridy = imax(floor((thisPos.y - gridMin.y) * inverseCellWidth - 0.5), 0);
-	int gridY = imin(floor((thisPos.y - gridMin.y) * inverseCellWidth + 0.5), gridResolution - 1);
-	int gridz = imax(floor((thisPos.z - gridMin.z) * inverseCellWidth - 0.5), 0);
-	int gridZ = imin(floor((thisPos.z - gridMin.z) * inverseCellWidth + 0.5), gridResolution - 1);	
+	float maxDis = imax(imax(rule1Distance, rule2Distance), rule3Distance);
+	int gridx = imax(floor((thisPos.x - gridMin.x - maxDis) * inverseCellWidth), 0);
+	int gridX = imin(floor((thisPos.x - gridMin.x + maxDis) * inverseCellWidth), gridResolution - 1);
+	int gridy = imax(floor((thisPos.y - gridMin.y - maxDis) * inverseCellWidth), 0);
+	int gridY = imin(floor((thisPos.y - gridMin.y + maxDis) * inverseCellWidth), gridResolution - 1);
+	int gridz = imax(floor((thisPos.z - gridMin.z - maxDis) * inverseCellWidth), 0);
+	int gridZ = imin(floor((thisPos.z - gridMin.z + maxDis) * inverseCellWidth), gridResolution - 1);
 
 	int count1 = 0, count2 = 0;
 	for (int iz = gridz; iz <= gridZ; iz++) {
@@ -498,12 +499,13 @@ __global__ void kernUpdateVelNeighborSearchCoherent(
 	glm::vec3 perceived_velocity(0.f, 0.f, 0.f);
 	glm::vec3 thisPos = pos[index];
 
-	int gridx = imax(floor((thisPos.x - gridMin.x) * inverseCellWidth - 0.5), 0);
-	int gridX = imin(floor((thisPos.x - gridMin.x) * inverseCellWidth + 0.5), gridResolution - 1);
-	int gridy = imax(floor((thisPos.y - gridMin.y) * inverseCellWidth - 0.5), 0);
-	int gridY = imin(floor((thisPos.y - gridMin.y) * inverseCellWidth + 0.5), gridResolution - 1);
-	int gridz = imax(floor((thisPos.z - gridMin.z) * inverseCellWidth - 0.5), 0);
-	int gridZ = imin(floor((thisPos.z - gridMin.z) * inverseCellWidth + 0.5), gridResolution - 1);
+	float maxDis = imax(imax(rule1Distance, rule2Distance), rule3Distance);
+	int gridx = imax(floor((thisPos.x - gridMin.x - maxDis) * inverseCellWidth), 0);
+	int gridX = imin(floor((thisPos.x - gridMin.x + maxDis) * inverseCellWidth), gridResolution - 1);
+	int gridy = imax(floor((thisPos.y - gridMin.y - maxDis) * inverseCellWidth), 0);
+	int gridY = imin(floor((thisPos.y - gridMin.y + maxDis) * inverseCellWidth), gridResolution - 1);
+	int gridz = imax(floor((thisPos.z - gridMin.z - maxDis) * inverseCellWidth), 0);
+	int gridZ = imin(floor((thisPos.z - gridMin.z + maxDis) * inverseCellWidth), gridResolution - 1);
 
 	int count1 = 0, count2 = 0;
 	for (int iz = gridz; iz <= gridZ; iz++) {
